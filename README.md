@@ -33,5 +33,5 @@ The task is to build a dashboard page that:
 
 Your ability to design a stunning looking dashboard page is not what we're looking for here - we're more focused on the code powering it; So don't worry if you're not the web equivalent of Picasso!
 
-We would prefer you to use `Node.js` and `TypeScript` as that's what we use, but you can use other tech / languages if you prefer.
+We would prefer you to use `React` and `TypeScript` as that's what we use, but you can use other tech / languages if you prefer.
 
