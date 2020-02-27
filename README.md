@@ -1,11 +1,9 @@
 # PepperHQ Frontend developer challenge
 
 ## TL;DR
-* Coding challenge represents day-to-day work at PepperHQ
+* The coding challenge is the first stage of our interview process at Pepper
 * Estimated time to complete: **1 to 2 hours**
-* If you already have easily accessible examples of your own code you want to use instead, email us!
-* We will use this as a way to initially analyse your abilities as well as for a code review and starting off point for a general technical discussion in the next step of the interview.
-* If you have any feedback on the interview process, email us! 
+* Instructions on how to complete: [Instructions](#instructions)
 * No need to do the challenge if you already have written similar code: email us a link to that repo instead
 * Go straight to [Challenge](#challenge)
 
