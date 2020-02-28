@@ -21,7 +21,7 @@ We are always open to iterating on our interview process so please email us if y
 
 * Copy or fork this github template into a new repo
 * Complete the coding [Challenge](#challenge)
-* Invite devchallenge@pepperhq.com to your repo so we can see your solution.
+* Invite PepperhqDevChallenge to your repo so we can see your solution.
 
 ## [Challenge](#challenge)
 
