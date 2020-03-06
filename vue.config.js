@@ -5,5 +5,7 @@ module.exports = {
     .loader('istanbul-instrumenter-loader')
     .options({ esModules: true })
     .before('babel-loader')
-  }
+  },
+
+  lintOnSave: false
 }

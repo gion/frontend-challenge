@@ -24,6 +24,7 @@
     "babel-plugin-istanbul": "^6.0.0",
     "chai": "^4.1.2",
     "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.10.0",
     "eslint-plugin-vue": "^6.1.2",
     "husky": "^4.2.3",
     "istanbul-instrumenter-loader": "^3.0.1",
@@ -37,12 +38,15 @@
     },
     "extends": [
       "plugin:vue/essential",
-      "eslint:recommended"
+      "eslint:recommended",
+      "prettier"
     ],
+    "rules": {
+      "prettier/prettier": "error"
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     },
-    "rules": {},
     "overrides": [
       {
         "files": [
