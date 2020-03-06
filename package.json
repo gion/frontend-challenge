@@ -25,6 +25,7 @@
     "chai": "^4.1.2",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.1.2",
+    "husky": "^4.2.3",
     "istanbul-instrumenter-loader": "^3.0.1",
     "nyc": "^15.0.0",
     "vue-template-compiler": "^2.6.11"
@@ -82,5 +83,10 @@
     ],
     "cache": true,
     "all": true
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test:coverage"
+    }
   }
 }
