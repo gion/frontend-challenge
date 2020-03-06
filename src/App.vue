@@ -1,16 +1,58 @@
 <template>
   <div id="app">
-    <Layout />
+    <Layout>
+      <template v-slot:topCell>
+        <SelectedItemDetails :people="people" />
+      </template>
+    </Layout>
   </div>
 </template>
 
 <script>
 import Layout from './components/Layout.vue'
+import SelectedItemDetails from './components/SelectedItemDetails.vue'
 
 export default {
   name: 'App',
   components: {
-    Layout
+    Layout,
+    SelectedItemDetails,
+  },
+  data: function() {
+    return {
+      details: {
+        debtor: {
+          first_name: "Barron",
+          last_name: "Hernandez",
+          account: {
+            sort_code: "70-20-81",
+            account_number: 4074214
+          }
+        },
+        beneficiary: {
+          first_name: "Ortiz",
+          last_name: "Solis",
+          account: {
+            sort_code: "70-99-54",
+            account_number: 38249705
+          }
+        }
+      }
+    }
+  },
+  computed: {
+    people: function () {
+      return Object.entries(this.details)
+        .map(([type, data]) => ({
+          type: type,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          details: {
+            'sort code': data.account.sort_code,
+            'account number': data.account.account_number,
+          }
+        }))
+    }
   }
 }
 </script>
