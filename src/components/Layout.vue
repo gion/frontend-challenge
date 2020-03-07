@@ -3,7 +3,7 @@
     <div class="leftPanel">
       <slot name="leftPanel">left panel</slot>
     </div>
-    <div class="rightPanel">
+    <div class="rightPanel" :class="{ visible: showPanel }">
       <div class="topCell">
         <slot name="topCell">top cell</slot>
       </div>
@@ -16,8 +16,14 @@
 
 <script>
 export default {
-  name: 'Layout',
-}
+  name: "Layout",
+  props: {
+    showPanel: {
+      type: Boolean,
+      default: false
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -37,6 +43,13 @@ export default {
   display: flex;
   flex-direction: column;
   flex: 1 1 100%;
+  width: 100%;
+  max-width: 0;
+  transition: all 300ms ease;
+}
+
+.rightPanel.visible {
+  max-width: 100%;
 }
 
 .topCell {
