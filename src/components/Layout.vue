@@ -44,5 +44,6 @@ export default {
 }
 .bottomCell {
   flex: 1 1 100%;
+  height: 0;
 }
 </style>
