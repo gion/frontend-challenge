@@ -1,20 +1,26 @@
 <template>
-  <div class="personCard">
-    <div class="name">{{fullName}}</div>
-    <div class="title">{{title}}</div>
+  <Card class="personCard" theme="dark">
+    <div class="name">{{ fullName }}</div>
+    <div class="title">{{ title }}</div>
     <div class="details">
       <ul>
         <li v-for="(value, key) of details" :key="key">
-          <span class="detailsKey">{{key}}</span>: <span class="detailsValue">{{value}}</span>
+          <span class="detailsKey">{{ key }}</span
+          >: <span class="detailsValue">{{ value }}</span>
         </li>
       </ul>
     </div>
-  </div>
+  </Card>
 </template>
 
 <script>
+import Card from './Card'
+
 export default {
   name: 'PersonCard',
+  components: {
+    Card,
+  },
   props: {
     firstName: String,
     lastName: String,
@@ -22,30 +28,25 @@ export default {
     details: Object,
   },
   computed: {
-    fullName: function () {
+    fullName: function() {
       return `${this.firstName} ${this.lastName}`
-    }
-  }
+    },
+  },
 }
 </script>
 
 <style scoped>
 .personCard {
-  background: rgba(0, 0, 0, 0.25);
-  box-shadow: 2px 2px 10px 1px rgba(0, 0, 0, 0.3);
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
   min-height: 100px;
+  margin-bottom: 0;
 }
+
 .personCard > * {
   transition: all 300ms ease;
 }
 
 .name {
   font-size: 28px;
-  color: red;
 }
 
 .title {
@@ -60,7 +61,8 @@ export default {
 
 .details {
   font-size: 0.9em;
-  color: rgba(0, 0, 0, 0.3);
+  color: #0a155a;
+  opacity: 0.5;
   transition: all 300ms ease;
 }
 
@@ -71,14 +73,14 @@ export default {
 }
 
 .detailsValue:before {
-  content: 'xxxxxxxx';
+  content: "xxxxxxxx";
   display: block;
   transition: all 300ms ease;
 }
 
 .personCard:hover .details,
 .personCard:active .details {
-  color: rgba(0, 0, 0, 0.8);
+  opacity: 1;
 }
 
 .personCard:hover .detailsValue:before,

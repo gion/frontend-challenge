@@ -28,13 +28,13 @@ export default {
     PersonCard,
   },
   props: {
-    people: Array
+    people: Array,
   },
   computed: {
     isEmpty: function() {
       return this.people.length === 0
-    }
-  }
+    },
+  },
 }
 </script>
 
@@ -46,6 +46,7 @@ export default {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  color: #fff;
 }
 
 .empty {
@@ -61,10 +62,5 @@ export default {
 h3 {
   font-size: 1.2em;
   margin: 10px;
-}
-
-.person {
-  margin: 10px;
-
 }
 </style>

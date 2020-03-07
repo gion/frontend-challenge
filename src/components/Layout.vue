@@ -33,6 +33,7 @@ export default {
 }
 
 .rightPanel {
+  background-color: #2e90a2;
   display: flex;
   flex-direction: column;
   flex: 1 1 100%;

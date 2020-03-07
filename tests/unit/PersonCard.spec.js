@@ -1,14 +1,15 @@
 import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
+import { mount } from '@vue/test-utils'
 import PersonCard from '@/components/PersonCard.vue'
+import Card from '@/components/Card.vue'
 
 describe('PersonCard.vue', () => {
   let propsData = {}
   let wrapper
 
   beforeEach(function() {
-    wrapper = shallowMount(PersonCard, {
-      propsData
+    wrapper = mount(PersonCard, {
+      propsData,
     })
   })
 
@@ -32,8 +33,8 @@ describe('PersonCard.vue', () => {
   })
 
   describe('render', () => {
-    it('should render a `<div />` element with the `.personCard` classname', () => {
-      expect(wrapper.is('div')).to.be.true
+    it('should render a `<Card />` element with the `.personCard` classname', () => {
+      expect(wrapper.find(Card).exists()).to.be.true
       expect(wrapper.classes('personCard')).to.be.true
     })
 

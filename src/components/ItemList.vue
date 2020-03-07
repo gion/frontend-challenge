@@ -12,8 +12,8 @@
     </div>
     <template v-else>
       <ul>
-        <li class="item" v-for="item in items" :key="item.guid">
-          item #{{ item.guid }}
+        <li v-for="item in items" :key="item.guid">
+          <Item :data="item" :onSelect="selectItem" />
         </li>
       </ul>
     </template>
@@ -21,8 +21,13 @@
 </template>
 
 <script>
+import Item from './Item.vue'
+
 export default {
   name: 'ItemList',
+  components: {
+    Item,
+  },
   props: {
     getItems: Function,
   },
@@ -41,6 +46,12 @@ export default {
     }
 
     this.isLoading = false
+  },
+  methods: {
+    selectItem: function(item) {
+      console.log('select item', item)
+      item.selected = true
+    },
   },
 }
 </script>
