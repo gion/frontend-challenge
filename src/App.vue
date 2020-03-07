@@ -7,6 +7,9 @@
       <template v-slot:topCell>
         <SelectedItemDetails :people="people" />
       </template>
+      <template v-slot:bottomCell>
+        <SimilarEntryList :items="items" :selectedItemId="selectedItemId" />
+      </template>
     </Layout>
   </div>
 </template>
@@ -15,6 +18,7 @@
 import Layout from './components/Layout.vue'
 import ItemList from './components/ItemList.vue'
 import SelectedItemDetails from './components/SelectedItemDetails.vue'
+import SimilarEntryList from './components/SimilarEntryList.vue'
 
 import { getItems } from './services/getItems'
 
@@ -24,9 +28,12 @@ export default {
     Layout,
     ItemList,
     SelectedItemDetails,
+    SimilarEntryList,
   },
   data: function() {
     return {
+      items: [],
+      selectedItemId: '',
       details: {
         debtor: {
           first_name: 'Barron',
