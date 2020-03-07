@@ -21,10 +21,11 @@
 </template>
 
 <script>
-import { getItems } from '../services/getItems'
-
 export default {
   name: 'ItemList',
+  props: {
+    getItems: Function,
+  },
   data() {
     return {
       items: [],
@@ -34,7 +35,7 @@ export default {
   },
   mounted: async function() {
     try {
-      this.items = await getItems()
+      this.items = await this.getItems()
     } catch (error) {
       this.error = error
     }

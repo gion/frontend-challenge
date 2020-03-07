@@ -6,6 +6,7 @@
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit",
+    "test:debug": "vue-cli-service test:unit --inspect-brk --watch",
     "test:coverage": "nyc npm run test:unit",
     "lint": "vue-cli-service lint"
   },
@@ -30,6 +31,7 @@
     "husky": "^4.2.3",
     "istanbul-instrumenter-loader": "^3.0.1",
     "nyc": "^15.0.0",
+    "sinon": "^9.0.0",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
