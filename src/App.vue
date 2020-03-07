@@ -2,7 +2,7 @@
   <div id="app">
     <Layout>
       <template v-slot:leftPanel>
-        <ItemList getItems="getItems" />
+        <ItemList :getItems="getItems" />
       </template>
       <template v-slot:topCell>
         <SelectedItemDetails :people="people" />
@@ -16,7 +16,7 @@ import Layout from './components/Layout.vue'
 import ItemList from './components/ItemList.vue'
 import SelectedItemDetails from './components/SelectedItemDetails.vue'
 
-import { getItems } from '../services/getItems'
+import { getItems } from './services/getItems'
 
 export default {
   name: 'App',

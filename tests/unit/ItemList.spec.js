@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { stub } from 'sinon'
 import { shallowMount } from '@vue/test-utils'
 import ItemList from '@/components/ItemList.vue'
+import Item from '@/components/Item.vue'
 
 describe('ItemList.vue', () => {
   let wrapper
@@ -50,8 +51,8 @@ describe('ItemList.vue', () => {
       expect(wrapperWithError.find('.loading').exists()).to.be.false
     })
 
-    it('should render an `.item` for each entry in the items data', () => {
-      expect(wrapper.findAll('.item').length).to.equal(wrapper.vm.items.length)
+    it('should render an `Item` for each entry in the items data', () => {
+      expect(wrapper.findAll(Item).length).to.equal(wrapper.vm.items.length)
     })
   })
 
