@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     selectItem: function(item) {
-      console.log('select item', item)
       item.selected = true
     },
   },

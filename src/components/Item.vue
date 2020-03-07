@@ -26,12 +26,7 @@ export default {
   },
   props: {
     data: Object,
-    onSelect: {
-      type: Function,
-      default: function() {
-        console.log('clicked item')
-      },
-    },
+    onSelect: Function,
     currencyFormat: {
       type: String,
       default: '0,0',
@@ -44,7 +39,7 @@ export default {
   computed: {
     classObject: function() {
       return {
-        selected: this.data.selected,
+        selected: !!this.data.selected,
         success: this.data.status === STATUSES.SUCCESS,
         fail: this.data.status === STATUSES.FAIL,
       }
