@@ -1,96 +1,80 @@
 <template>
   <div id="app">
-    <Layout>
-      <template v-slot:leftPanel>
-        <ItemList :getItems="getItems" />
-      </template>
-      <template v-slot:topCell>
-        <SelectedItemDetails :people="people" />
-      </template>
-      <template v-slot:bottomCell>
-        <SimilarEntryList :items="items" :selectedItemId="selectedItemId" />
-      </template>
-    </Layout>
+    <div id="nav">
+      <div class="left">
+        <a href="/"
+          ><img src="./assets/logo_white.svg" alt="form3 logo" id="logo"
+        /></a>
+      </div>
+      <div class="right">
+        <router-link class="menu-item" to="/">Home</router-link>
+        <router-link class="menu-item" to="/list">List</router-link>
+        <router-link class="menu-item" to="/about">About</router-link>
+      </div>
+    </div>
+    <router-view />
   </div>
 </template>
-
-<script>
-import Layout from './components/Layout.vue'
-import ItemList from './components/ItemList.vue'
-import SelectedItemDetails from './components/SelectedItemDetails.vue'
-import SimilarEntryList from './components/SimilarEntryList.vue'
-
-import { getItems } from './services/getItems'
-
-export default {
-  name: 'App',
-  components: {
-    Layout,
-    ItemList,
-    SelectedItemDetails,
-    SimilarEntryList,
-  },
-  data: function() {
-    return {
-      items: [],
-      selectedItemId: '',
-      details: {
-        debtor: {
-          first_name: 'Barron',
-          last_name: 'Hernandez',
-          account: {
-            sort_code: '70-20-81',
-            account_number: 4074214,
-          },
-        },
-        beneficiary: {
-          first_name: 'Ortiz',
-          last_name: 'Solis',
-          account: {
-            sort_code: '70-99-54',
-            account_number: 38249705,
-          },
-        },
-      },
-    }
-  },
-  computed: {
-    people: function() {
-      return Object.entries(this.details).map(([type, data]) => ({
-        type: type,
-        firstName: data.first_name,
-        lastName: data.last_name,
-        details: {
-          'sort code': data.account.sort_code,
-          'account number': data.account.account_number,
-        },
-      }))
-    },
-  },
-  methods: {
-    getItems,
-  },
-}
-</script>
 
 <!-- a simple css reset -->
 <style src="../node_modules/reset-css/reset.css"></style>
 
 <!-- the global style -->
 <style>
-body {
+#app {
+  font-family: Avenir, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  color: #2c3e50;
+  display: flex;
+  flex-direction: column;
   display: flex;
   width: 100vw;
   height: 100vh;
   overflow: hidden;
 }
 
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  color: #2c3e50;
+#nav {
+  background-image: linear-gradient(#211845, #221846);
   display: flex;
-  flex: 1;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.left {
+  flex: 0 1 40%;
+}
+
+#logo {
+  height: 50px;
+  width: auto;
+}
+
+#nav a.menu-item {
+  font-weight: bold;
+  color: #fff;
+  text-transform: uppercase;
+  position: relative;
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 15px;
+}
+
+#nav a.menu-item:after {
+  content: "";
+  display: block;
+  height: 2px;
+  width: 120%;
+  max-width: 0px;
+  background: #4d57d2;
+  transition: all 300ms ease;
+  transform: translate(-10%, 5px);
+}
+
+#nav a.menu-item.router-link-exact-active:after,
+#nav a.menu-item:hover:after,
+#nav a.menu-item:active:after {
+  max-width: 120%;
 }
 </style>
