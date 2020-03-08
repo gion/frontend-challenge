@@ -2,6 +2,7 @@ import { expect } from 'chai'
 import { mount, createLocalVue } from '@vue/test-utils'
 import VueRouter from 'vue-router'
 import { spy } from 'sinon'
+import moment from 'moment'
 import Item from '@/components/Item.vue'
 
 const localVue = createLocalVue()
@@ -18,7 +19,7 @@ describe('Item.vue', () => {
       type: 'ADMISSION',
       status: 'DECLINED',
       amount: 1234,
-      created: 'Mon Nov 24 2003 10:39:50 GMT+0000 (UTC)',
+      created: '2003-11-24T10:39:50.000Z',
     },
   }
 
@@ -46,7 +47,9 @@ describe('Item.vue', () => {
     })
 
     it('created', () => {
-      expect(wrapper.vm.created).to.equal('Mo/39/2003 12:39:50')
+      expect(wrapper.vm.created).to.equal(
+        moment('2003-11-24T10:39:50.000Z').format('dd/mm/YYYY hh:mm:ss'),
+      )
     })
 
     it('classObject', () => {
