@@ -1,4 +1,5 @@
+/* istanbul ignore file */
 export const STATUSES = {
-  SUCCESS: 'ADMISSION',
+  SUCCESS: 'ACCEPTED',
   FAIL: 'DECLINED',
 }

@@ -17,6 +17,7 @@ import moment from "moment";
 import Card from "./Card.vue";
 
 import { STATUSES } from "./constants";
+import { scrollElementIntoView } from "../helpers";
 
 export default {
   name: "item",
@@ -64,6 +65,13 @@ export default {
     handleClick() {
       console.log("handleClick", this.data);
       this.onSelect(this.data);
+    }
+  },
+  watch: {
+    selected(newSelectedVal) {
+      if (newSelectedVal) {
+        scrollElementIntoView(this.$el);
+      }
     }
   }
 };
