@@ -12,10 +12,18 @@ describe('SimilarEntryList.vue', () => {
   let wrapper
   let propsData = { items: [], selectedItemId: '' }
   let getters = {
-    isLoading: () => false,
-    error: () => null,
-    items: () => [],
-    selectedItemId: () => null,
+    items: () => [
+      { index: 1, guid: 'guid1', type: 'a', status: 'done' },
+      { index: 2, guid: 'guid2', type: 'a', status: 'in progress' },
+      { index: 3, guid: 'guid3', type: 'a', status: 'in progress' },
+    ],
+    selectedItemId: () => 'guid2',
+    selectedItem: () => ({
+      index: 2,
+      guid: 'guid2',
+      type: 'a',
+      status: 'in progress',
+    }),
   }
   let store
 
@@ -42,14 +50,64 @@ describe('SimilarEntryList.vue', () => {
     })
 
     it('should render only the empty message when no items provided', () => {
-      expect(wrapper.find('.empty').exists()).to.be.true
-      expect(wrapper.findAll(Card).length).to.equal(0)
+      const newGetters = {
+        items: () => [],
+      }
+
+      const wrapper2 = shallowMount(SimilarEntryList, {
+        propsData,
+        localVue,
+        store: new Vuex.Store({
+          getters: {
+            ...getters,
+            ...newGetters,
+          },
+        }),
+      })
+
+      expect(wrapper2.find('.empty').exists()).to.be.true
+      expect(wrapper2.findAll(Card).length).to.equal(0)
     })
 
-    it('should render a `similarEntry` Card for each entry in the items data', () => {
+    it('should render a `.similarEntry` Card for each entry in the similarEntryList', () => {
       expect(wrapper.findAll('.similarEntry').length).to.equal(
-        wrapper.vm.items.length,
+        wrapper.vm.similarEntryList.length,
       )
+    })
+  })
+
+  describe('computed', () => {
+    it('unselectedItems', () => {
+      expect(wrapper.vm.unselectedItems).to.deep.equal([
+        { index: 1, guid: 'guid1', type: 'a', status: 'done' },
+        { index: 3, guid: 'guid3', type: 'a', status: 'in progress' },
+      ])
+    })
+
+    it('similarEntryList', () => {
+      expect(wrapper.vm.similarEntryList).to.deep.equal([
+        { index: 3, guid: 'guid3', type: 'a', status: 'in progress' },
+      ])
+
+      const newGetters = {
+        selectedItem: () => null,
+      }
+
+      const wrapper2 = shallowMount(SimilarEntryList, {
+        propsData,
+        localVue,
+        store: new Vuex.Store({
+          getters: {
+            ...getters,
+            ...newGetters,
+          },
+        }),
+      })
+      expect(wrapper2.vm.similarEntryList).to.deep.equal([])
+    })
+
+    it('isEmpty', () => {
+      expect(wrapper.vm.isEmpty).to.be.false
     })
   })
 })
