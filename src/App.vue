@@ -2,13 +2,13 @@
   <div id="app">
     <div id="nav">
       <div class="left">
-        <a href="/"
+        <router-link to="/"
           ><img src="./assets/logo_white.svg" alt="form3 logo" id="logo"
-        /></a>
+        /></router-link>
       </div>
       <div class="right">
-        <router-link class="menu-item" to="/">Home</router-link>
-        <router-link class="menu-item" to="/list">List</router-link>
+        <router-link class="menu-item" to="/home">Home</router-link>
+        <router-link class="menu-item" to="/list">Transaction list</router-link>
         <router-link class="menu-item" to="/about">About</router-link>
       </div>
     </div>
@@ -72,7 +72,7 @@
   transform: translate(-10%, 5px);
 }
 
-#nav a.menu-item.router-link-exact-active:after,
+#nav a.menu-item.router-link-active:after,
 #nav a.menu-item:hover:after,
 #nav a.menu-item:active:after {
   max-width: 120%;
