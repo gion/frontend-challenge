@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "card",
+  name: "Card",
   props: {
     theme: {
       type: String,

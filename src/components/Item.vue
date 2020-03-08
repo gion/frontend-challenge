@@ -20,7 +20,7 @@ import { STATUSES } from "./constants";
 import { scrollElementIntoView } from "../helpers";
 
 export default {
-  name: "item",
+  name: "Item",
   components: {
     Card
   },

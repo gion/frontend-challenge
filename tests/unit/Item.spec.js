@@ -1,8 +1,12 @@
 import { expect } from 'chai'
-import { mount } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
+import VueRouter from 'vue-router'
 import { spy } from 'sinon'
 import Item from '@/components/Item.vue'
-import Card from '@/components/Card.vue'
+
+const localVue = createLocalVue()
+localVue.use(VueRouter)
+const router = new VueRouter()
 
 describe('Item.vue', () => {
   let wrapper
@@ -19,6 +23,8 @@ describe('Item.vue', () => {
   beforeEach(function() {
     wrapper = mount(Item, {
       propsData,
+      localVue,
+      router,
     })
   })
 
@@ -27,9 +33,8 @@ describe('Item.vue', () => {
   })
 
   describe('render', () => {
-    it('should render a `<Card />` element with the `.item` classname', () => {
-      expect(wrapper.find(Card).exists()).to.be.true
-      expect(wrapper.classes('item')).to.be.true
+    it('should render a `.link` classname', () => {
+      expect(wrapper.classes('link')).to.be.true
     })
   })
 

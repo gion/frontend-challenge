@@ -1,15 +1,33 @@
 import { expect } from 'chai'
-import { shallowMount } from '@vue/test-utils'
+import { shallowMount, createLocalVue } from '@vue/test-utils'
+import Vuex from 'vuex'
 import SimilarEntryList from '@/components/SimilarEntryList.vue'
 import Card from '@/components/Card.vue'
+
+const localVue = createLocalVue()
+
+localVue.use(Vuex)
 
 describe('SimilarEntryList.vue', () => {
   let wrapper
   let propsData = { items: [], selectedItemId: '' }
+  let getters = {
+    isLoading: () => false,
+    error: () => null,
+    items: () => [],
+    selectedItemId: () => null,
+  }
+  let store
 
   beforeEach(function() {
+    store = new Vuex.Store({
+      getters,
+    })
+
     wrapper = shallowMount(SimilarEntryList, {
       propsData,
+      localVue,
+      store,
     })
   })
 
@@ -32,73 +50,6 @@ describe('SimilarEntryList.vue', () => {
       expect(wrapper.findAll('.similarEntry').length).to.equal(
         wrapper.vm.items.length,
       )
-    })
-  })
-
-  describe('computed', () => {
-    it('selectedItem', () => {
-      expect(wrapper.vm.selectedItem).to.not.be.ok
-
-      wrapper.setProps({
-        items: [
-          { index: 1, guid: 'guid1' },
-          { index: 2, guid: 'guid2' },
-          { index: 3, guid: 'guid3' },
-        ],
-        selectedItemId: 'guid2',
-      })
-
-      expect(wrapper.vm.selectedItem).to.deep.equal({ index: 2, guid: 'guid2' })
-    })
-
-    it('unselectedItems', () => {
-      expect(wrapper.vm.unselectedItems).to.deep.equal([])
-
-      wrapper.setProps({
-        items: [
-          { index: 1, guid: 'guid1' },
-          { index: 2, guid: 'guid2' },
-          { index: 3, guid: 'guid3' },
-        ],
-        selectedItemId: 'guid2',
-      })
-
-      expect(wrapper.vm.unselectedItems).to.deep.equal([
-        { index: 1, guid: 'guid1' },
-        { index: 3, guid: 'guid3' },
-      ])
-    })
-
-    it('similarEntryList', () => {
-      expect(wrapper.vm.similarEntryList).to.deep.equal([])
-
-      wrapper.setProps({
-        items: [
-          { index: 1, guid: 'guid1', type: 'a', status: 'done' },
-          { index: 2, guid: 'guid2', type: 'a', status: 'in progress' },
-          { index: 3, guid: 'guid3', type: 'a', status: 'in progress' },
-        ],
-        selectedItemId: 'guid2',
-      })
-
-      expect(wrapper.vm.similarEntryList).to.deep.equal([
-        { index: 3, guid: 'guid3', type: 'a', status: 'in progress' },
-      ])
-    })
-
-    it('isEmpty', () => {
-      expect(wrapper.vm.isEmpty).to.be.true
-
-      wrapper.setProps({
-        items: [
-          { index: 1, guid: 'guid1', type: 'a', status: 'done' },
-          { index: 2, guid: 'guid2', type: 'a', status: 'in progress' },
-          { index: 3, guid: 'guid3', type: 'a', status: 'in progress' },
-        ],
-        selectedItemId: 'guid2',
-      })
-
-      expect(wrapper.vm.isEmpty).to.be.false
     })
   })
 })
