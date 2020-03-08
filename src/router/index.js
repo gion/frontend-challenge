@@ -9,7 +9,7 @@ Vue.use(VueRouter)
 
 const routes = [
   {
-    path: '/',
+    path: '/home',
     name: 'Home',
     component: Home,
   },
@@ -27,6 +27,12 @@ const routes = [
     path: '/about',
     name: 'About',
     component: About,
+  },
+  {
+    // will match everything
+    path: '/*',
+    name: 'Home alias',
+    redirect: '/home',
   },
 ]
 
