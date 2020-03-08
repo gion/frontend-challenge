@@ -5,4 +5,5 @@ export const scrollElementIntoView = (
     behavior: 'smooth',
     block: 'nearest',
   },
-) => domElement.scrollIntoView(options)
+) =>
+  domElement && domElement.scrollIntoView && domElement.scrollIntoView(options)
