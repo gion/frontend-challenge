@@ -63,7 +63,6 @@ export default {
   },
   methods: {
     handleClick() {
-      console.log("handleClick", this.data);
       this.onSelect(this.data);
     }
   },

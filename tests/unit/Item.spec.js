@@ -12,7 +12,9 @@ describe('Item.vue', () => {
   let wrapper
   let propsData = {
     onSelect: spy(),
+    selected: false,
     data: {
+      guid: 'guid',
       type: 'ADMISSION',
       status: 'DECLINED',
       amount: 1234,
@@ -52,11 +54,18 @@ describe('Item.vue', () => {
       expect(wrapper.vm.classObject.success).to.be.false
       expect(wrapper.vm.classObject.fail).to.be.true
     })
+
+    it('itemUrl', () => {
+      expect(wrapper.vm.itemUrl).to.equal('/list/guid')
+      wrapper.setProps({ selected: true })
+      expect(wrapper.vm.itemUrl).to.equal('/list')
+    })
   })
 
-  xit('should call the `onSelect` function when clicked', async () => {
+  it('should call the `onSelect` function when calling `handleClick`', async () => {
     expect(propsData.onSelect.called).to.be.false
-    wrapper.find('.item').trigger('click')
+    // wrapper.find('.item').trigger('click')
+    wrapper.vm.handleClick()
     await wrapper.vm.$nextTick()
     expect(propsData.onSelect.called).to.be.true
   })
