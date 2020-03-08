@@ -53,16 +53,19 @@ export default {
 }
 
 .rightPanel {
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   flex: 1 1 100%;
   width: 100%;
   max-width: 0;
-  transition: all 300ms ease;
+  transition: max-width 300ms ease-in, background-color 300ms 300ms ease;
 }
 
 .rightPanel.visible {
   max-width: 100%;
+  transform: none;
+  transition: max-width 300ms ease-out, background-color 300ms ease;
 }
 
 .rightPanel.success {

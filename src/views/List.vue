@@ -98,5 +98,6 @@ export default {
   display: flex;
   flex: 1;
   height: 0;
+  overflow: hidden;
 }
 </style>
