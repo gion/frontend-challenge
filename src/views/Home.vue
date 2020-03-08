@@ -4,7 +4,7 @@
       This is just a sample homepage in order to support the routing mechanism.
     </p>
     <p>
-      Please hed on to the <router-link to="/about">about page</router-link> to
+      Please head on to the <router-link to="/about">about page</router-link> to
       learn more about this project, or simply go to the
       <router-link to="/list">list page</router-link> to dive in 💦
     </p>
