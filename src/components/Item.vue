@@ -1,63 +1,84 @@
 <template>
-  <Card class="item" :class="classObject" @click="onSelect">
-    <div>index: {{ data.index }}</div>
-    <div>type: {{ data.type }}</div>
-    <div>status: {{ data.status }}</div>
-    <div>amount: {{ amount }}</div>
-    <div>created: {{ created }}</div>
-  </Card>
+  <router-link :to="itemUrl" class="link">
+    <Card class="item" :class="classObject" @click="handleClick">
+      <div>index: {{ data.index }}</div>
+      <div>type: {{ data.type }}</div>
+      <div>status: {{ data.status }}</div>
+      <div>amount: {{ amount }}</div>
+      <div>created: {{ created }}</div>
+    </Card>
+  </router-link>
 </template>
 
 <script>
-import Card from './Card.vue'
+import numeral from "numeral";
+import moment from "moment";
 
-import numeral from 'numeral'
-import moment from 'moment'
+import Card from "./Card.vue";
 
-export const STATUSES = {
-  SUCCESS: 'ADMISSION',
-  FAIL: 'DECLINED',
-}
+import { STATUSES } from "./constants";
 
 export default {
-  name: 'item',
+  name: "item",
   components: {
-    Card,
+    Card
   },
   props: {
     data: Object,
+    selected: Boolean,
     onSelect: Function,
     currencyFormat: {
       type: String,
-      default: '0,0',
+      default: "0,0"
     },
     dateFormat: {
       type: String,
-      default: 'dd/mm/YYYY hh:mm:ss',
-    },
+      default: "dd/mm/YYYY hh:mm:ss"
+    }
   },
   computed: {
     classObject: function() {
       return {
-        selected: !!this.data.selected,
+        selected: !!this.selected,
         success: this.data.status === STATUSES.SUCCESS,
-        fail: this.data.status === STATUSES.FAIL,
-      }
+        fail: this.data.status === STATUSES.FAIL
+      };
     },
     amount: function() {
-      return numeral(this.data.amount).format(this.currencyFormat)
+      return numeral(this.data.amount).format(this.currencyFormat);
     },
     created: function() {
-      return moment(this.data.created).format(this.dateFormat)
+      return moment(this.data.created).format(this.dateFormat);
     },
+    itemUrl: function() {
+      // deselect
+      if (this.selected) {
+        return "/list";
+      }
+
+      // select
+      return `/list/${this.data.guid}`;
+    }
   },
-}
+  methods: {
+    handleClick() {
+      console.log("handleClick", this.data);
+      this.onSelect(this.data);
+    }
+  }
+};
 </script>
 
 <style scoped>
+.link {
+  text-decoration: inherit;
+  text-align: left;
+  color: inherit;
+}
+
 .item {
-  cursor: pointer;
   border-left-width: 12px !important;
+  transition: all 300ms ease;
 }
 
 .item.selected {
@@ -67,6 +88,10 @@ export default {
   border: 0;
   position: relative;
   z-index: 1;
+}
+
+.item.fail.selected {
+  background: linear-gradient(to left, #ca6069, #960713);
 }
 
 .item.fail {

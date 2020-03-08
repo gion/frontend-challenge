@@ -6,19 +6,17 @@
 
 <script>
 export default {
-  name: 'card',
+  name: "card",
   props: {
     theme: {
       type: String,
-      default: 'green',
-    },
-  },
-}
+      default: "green"
+    }
+  }
+};
 </script>
 
 <style scoped>
-/* https://coolors.co/206688-2e90a2-3ebebe-424a80-153b71 */
-
 .card {
   padding: 12px;
   display: flex;
@@ -26,6 +24,7 @@ export default {
   justify-content: space-evenly;
   margin: 24px;
   transition: all 300ms ease;
+  text-align: left;
 }
 
 .card:hover {

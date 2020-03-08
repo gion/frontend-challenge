@@ -13,7 +13,7 @@
     <template v-else>
       <ul>
         <li v-for="item in items" :key="item.guid">
-          <Item :data="item" :onSelect="selectItem" />
+          <Item :data="item" :selected="item.guid === selectedItemId" />
         </li>
       </ul>
     </template>
@@ -21,38 +21,18 @@
 </template>
 
 <script>
-import Item from './Item.vue'
+import { mapGetters } from "vuex";
+import Item from "./Item.vue";
 
 export default {
-  name: 'ItemList',
+  name: "ItemList",
   components: {
-    Item,
+    Item
   },
-  props: {
-    getItems: Function,
-  },
-  data() {
-    return {
-      items: [],
-      error: null,
-      isLoading: true,
-    }
-  },
-  mounted: async function() {
-    try {
-      this.items = await this.getItems()
-    } catch (error) {
-      this.error = error
-    }
-
-    this.isLoading = false
-  },
-  methods: {
-    selectItem: function(item) {
-      item.selected = true
-    },
-  },
-}
+  computed: {
+    ...mapGetters(["isLoading", "error", "items", "selectedItemId"])
+  }
+};
 </script>
 
 <style scoped>
