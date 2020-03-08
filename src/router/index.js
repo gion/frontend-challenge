@@ -17,12 +17,11 @@ const routes = [
     path: '/list',
     name: 'List',
     component: List,
-    // children: [
-    //   {
-    //     path: ':id',
-    //     component: 'aaaaa',
-    //   },
-    // ],
+  },
+  {
+    path: '/list/:id',
+    name: 'List',
+    component: List,
   },
   {
     path: '/about',

@@ -1,27 +1,28 @@
 <template>
   <div id="list">
-    <Layout :showPanel="!!selectedItemId">
+    <Layout :showPanel="!!selectedItemId" :panelStatus="panelStatus">
       <template v-slot:leftPanel>
-        <ItemList :getItems="getItems" />
+        <ItemList />
       </template>
       <router-view></router-view>
       <template v-slot:topCell>
         <SelectedItemDetails :people="people" />
       </template>
       <template v-slot:bottomCell>
-        <SimilarEntryList :items="items" :selectedItemId="selectedItemId" />
+        <SimilarEntryList />
       </template>
     </Layout>
   </div>
 </template>
 
 <script>
+import _ from "lodash";
+import { mapGetters } from "vuex";
+
 import Layout from "../components/Layout.vue";
 import ItemList from "../components/ItemList.vue";
 import SelectedItemDetails from "../components/SelectedItemDetails.vue";
 import SimilarEntryList from "../components/SimilarEntryList.vue";
-
-import { getItems } from "../services/getItems";
 
 export default {
   name: "List",
@@ -33,8 +34,6 @@ export default {
   },
   data: function() {
     return {
-      items: [],
-      selectedItemId: "",
       details: {
         debtor: {
           first_name: "Barron",
@@ -56,20 +55,35 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(["items", "selectedItemId", "selectedItem"]),
+    panelStatus: function() {
+      return _.get(this.selectedItem, "status");
+    },
     people: function() {
-      return Object.entries(this.details).map(([type, data]) => ({
-        type: type,
-        firstName: data.first_name,
-        lastName: data.last_name,
-        details: {
-          "sort code": data.account.sort_code,
-          "account number": data.account.account_number
-        }
-      }));
+      if (!this.selectedItem) {
+        return [];
+      }
+
+      return Object.entries(this.selectedItem.attributes).map(
+        ([type, data]) => ({
+          type: type,
+          firstName: data.first_name,
+          lastName: data.last_name,
+          details: {
+            "sort code": data.account.sort_code,
+            "account number": data.account.account_number
+          }
+        })
+      );
     }
   },
-  methods: {
-    getItems
+  mounted() {
+    this.$store.dispatch("fetchItems");
+  },
+  watch: {
+    $route(to) {
+      this.$store.commit("selectItem", _.get(to, "params.id"));
+    }
   }
 };
 </script>
@@ -84,5 +98,6 @@ export default {
   display: flex;
   flex: 1;
   height: 0;
+  overflow: hidden;
 }
 </style>

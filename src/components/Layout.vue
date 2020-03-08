@@ -3,7 +3,7 @@
     <div class="leftPanel">
       <slot name="leftPanel">left panel</slot>
     </div>
-    <div class="rightPanel" :class="{ visible: showPanel }">
+    <div class="rightPanel" :class="classNames">
       <div class="topCell">
         <slot name="topCell">top cell</slot>
       </div>
@@ -15,12 +15,26 @@
 </template>
 
 <script>
+import { STATUSES } from "../components/constants";
+
 export default {
   name: "Layout",
   props: {
     showPanel: {
       type: Boolean,
       default: false
+    },
+    panelStatus: {
+      type: String
+    }
+  },
+  computed: {
+    classNames() {
+      return {
+        visible: this.showPanel,
+        success: this.panelStatus === STATUSES.SUCCESS,
+        fail: this.panelStatus === STATUSES.FAIL
+      };
     }
   }
 };
@@ -39,17 +53,27 @@ export default {
 }
 
 .rightPanel {
-  background-color: #2e90a2;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   flex: 1 1 100%;
   width: 100%;
   max-width: 0;
-  transition: all 300ms ease;
+  transition: max-width 300ms ease-in, background-color 300ms 300ms ease;
 }
 
 .rightPanel.visible {
   max-width: 100%;
+  transform: none;
+  transition: max-width 300ms ease-out, background-color 300ms ease;
+}
+
+.rightPanel.success {
+  background-color: #2e90a2;
+}
+
+.rightPanel.fail {
+  background-color: #ca6069;
 }
 
 .topCell {

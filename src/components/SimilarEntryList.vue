@@ -7,9 +7,11 @@
       <h3>We found {{ similarEntryList.length }} similar entries:</h3>
       <ul>
         <li v-for="(item, index) in similarEntryList" :key="item.guid">
-          <Card theme="dark" class="similarEntry" @click="onSelect(item)">
-            #{{ index }} {{ item.guid }}
-          </Card>
+          <router-link class="link" :to="getItemUrl(item)">
+            <Card theme="dark" class="similarEntry" @click="onSelect(item)">
+              #{{ index }} {{ item.guid }}
+            </Card>
+          </router-link>
         </li>
       </ul>
     </template>
@@ -17,40 +19,40 @@
 </template>
 
 <script>
-import _ from 'lodash'
-import Card from './Card.vue'
+import _ from "lodash";
+import { mapGetters } from "vuex";
+import Card from "./Card.vue";
 
 export default {
-  name: 'SimilarEntryList',
+  name: "SimilarEntryList",
   components: {
-    Card,
-  },
-  props: {
-    items: Array,
-    selectedItemId: String,
-    onSelect: Function,
+    Card
   },
   computed: {
-    selectedItem: function() {
-      return _.find(this.items, { guid: this.selectedItemId })
-    },
+    ...mapGetters(["items", "selectedItemId", "selectedItem"]),
+
     unselectedItems: function() {
-      return _.filter(this.items, item => item.guid !== this.selectedItemId)
+      return _.filter(this.items, item => item.guid !== this.selectedItemId);
     },
     similarEntryList: function() {
       if (!this.selectedItem) {
-        return []
+        return [];
       }
 
-      const { type, status } = this.selectedItem
+      const { type, status } = this.selectedItem;
 
-      return _.filter(this.unselectedItems, { type, status })
+      return _.filter(this.unselectedItems, { type, status });
     },
     isEmpty: function() {
-      return this.similarEntryList.length === 0
-    },
+      return this.similarEntryList.length === 0;
+    }
   },
-}
+  methods: {
+    getItemUrl(item) {
+      return `/list/${item.guid}`;
+    }
+  }
+};
 </script>
 
 <style scoped>
@@ -67,7 +69,12 @@ export default {
 .similarEntry {
   margin-top: 4px;
   margin-bottom: 4px;
-  cursor: pointer;
+}
+
+.link {
+  text-decoration: inherit;
+  text-align: left;
+  color: inherit;
 }
 
 .empty {
